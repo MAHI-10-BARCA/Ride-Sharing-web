@@ -11,21 +11,29 @@ import UserProfilePage from "../pages/user/UserProfilepage";
 import HelpSupportPage from "../pages/user/HelpSupportPage";
 import NotFoundPage from "../pages/common/NotFoundPage";
 import PaymentPage from "../pages/user/PaymentPage";
+import ProtectedRoute from "./ProtectedRoute"; // Import the protected route
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* --- Public Routes --- */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/book-ride" element={<BookRidePage />} />
-        <Route path="/track" element={<TrackRidePage />} />
-        <Route path="/post-ride" element={<PostRidePage />} />
-        <Route path="/payment" element={<PaymentPage/>}/>
-        <Route path="/history" element={<RideHistoryPage />} />
-        <Route path="/profile" element={<UserProfilePage />} />
-        <Route path="/help" element={<HelpSupportPage />} />
+        
+        {/* --- Protected Routes --- */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/book-ride" element={<BookRidePage />} />
+          <Route path="/track" element={<TrackRidePage />} />
+          <Route path="/post-ride" element={<PostRidePage />} />
+          <Route path="/payment" element={<PaymentPage/>}/>
+          <Route path="/history" element={<RideHistoryPage />} />
+          <Route path="/profile" element={<UserProfilePage />} />
+          <Route path="/help" element={<HelpSupportPage />} />
+        </Route>
+
+        {/* --- Not Found Route --- */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
